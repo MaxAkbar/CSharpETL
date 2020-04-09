@@ -12,13 +12,13 @@ namespace CSharpETL
             string[] csvLines = ExtractCsvFile(fileName);
 
             // Transform
-            MovieNActors[] movieNActors = Transform(csvLines);
+            MovieAndActors[] movieNActors = Transform(csvLines);
 
             // Load
             LoadMovieNActors(movieNActors);
         }
 
-        private static void LoadMovieNActors(MovieNActors[] movieNActors)
+        private static void LoadMovieNActors(MovieAndActors[] movieNActors)
         {
             // save the new array struct in two files movies and actors
             for (int index = 0; index < movieNActors.Length; index++)
@@ -39,15 +39,15 @@ namespace CSharpETL
             }
         }
 
-        private static MovieNActors[] Transform(string[] csvLines)
+        private static MovieAndActors[] Transform(string[] csvLines)
         {
-            MovieNActors[] movieNActors = new MovieNActors[csvLines.Length];
+            MovieAndActors[] movieNActors = new MovieAndActors[csvLines.Length];
 
             // iterate through string array
             for (int index = 0; index < csvLines.Length; index++)
             {
                 // skip the first line as it's a header
-                if(index > 0)
+                if (index > 0)
                 {
                     string line = csvLines[index];
 
@@ -60,9 +60,9 @@ namespace CSharpETL
             return movieNActors;
         }
 
-        private static MovieNActors MapCsvLines(string line)
+        private static MovieAndActors MapCsvLines(string line)
         {
-            MovieNActors movieNActors = new MovieNActors();
+            MovieAndActors movieNActors = new MovieAndActors();
 
             string[] columns = line.Split(",\"");
             string[] columns2;
@@ -126,7 +126,7 @@ namespace CSharpETL
         }
     }
 
-    struct MovieNActors
+    struct MovieAndActors
     {
         public int Id;
         public string MovieNames;
